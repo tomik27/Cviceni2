@@ -8,12 +8,12 @@ private:
 	double dph;
 public:
 	Uctenka();
-int getCisloUctenky()const;
+int getCisloUctenky();
 void setCisloUctenky(int cislo);
 Uctenka(double castka, double dph);
-double getCastka()const;
+double getCastka();
 void setCastka(double cislo);
-double getDph()const;
+double getDph();
 void setDph(double cislo);
 
 };
