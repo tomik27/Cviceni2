@@ -3,10 +3,10 @@
 #ifndef DEBUG
 class Pokladna {
 private:
-			int pocetVydanychUctenek=0;
+			int pocetVydanychUctenek;
 	 static	int  citacId;
 		Uctenka* uctenky;
-
+		
 public:
 	Pokladna();
 	~Pokladna();

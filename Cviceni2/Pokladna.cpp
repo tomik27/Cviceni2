@@ -1,10 +1,13 @@
 #include "Pokladna.h"
 #include <iostream>
+#include<stdexcept>
+#define POCET 10;
+#define ID_COUNTER 1000;
 using namespace std;
 //using namespace ;
-int Pokladna::citacId = 1000;
+int Pokladna::citacId = ID_COUNTER;
 
-Pokladna::Pokladna() {
+Pokladna::Pokladna():pocetVydanychUctenek(0) {
 	uctenky = new Uctenka[10];
 }
 Pokladna::~Pokladna()
@@ -14,14 +17,17 @@ Pokladna::~Pokladna()
 Uctenka& Pokladna::vystavUctenku(double castka, double dph) {
 	//return *uctenka;
 	//Uctenka* uctenka = new Uctenka(castka, dph);
+	if (pocetVydanychUctenek == POCET)
+		throw overflow_error("Cash register is full");
+
 	int noveId = citacId;
 	uctenky[pocetVydanychUctenek].setCastka(castka);
 	uctenky[pocetVydanychUctenek].setDph(dph);
 	uctenky[pocetVydanychUctenek].setCisloUctenky(noveId);
 
-	Pokladna::pocetVydanychUctenek++;
+	//Pokladna::pocetVydanychUctenek++;
 
-	return uctenky[pocetVydanychUctenek];
+	return uctenky[pocetVydanychUctenek++];
 }
 Uctenka& Pokladna::dejUctenka(int uctenka) {
 	for (size_t i = 0; i < Pokladna::pocetVydanychUctenek; i++)
@@ -31,7 +37,7 @@ Uctenka& Pokladna::dejUctenka(int uctenka) {
 			return uctenky[i];
 		}
 	}
-	throw "Chyba";
+	throw invalid_argument("Uctenka nenalezena");
 }
 double  Pokladna::dejCastku() const  {
 	double castka = 0;
